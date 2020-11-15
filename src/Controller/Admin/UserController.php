@@ -30,6 +30,7 @@ class UserController extends AbstractController
     {
         $paginator = $userRepository->getAllUsers($page);
 
+        // Loop over ONLY paginated users to get extra data
         $users = [];
         foreach ($paginator->getResults() as $user) {
             $users[] = [
