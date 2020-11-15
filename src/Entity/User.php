@@ -78,6 +78,11 @@ class User implements UserInterface, \Serializable
      */
     private $roles = [];
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $totalPostUpdates = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -184,5 +189,17 @@ class User implements UserInterface, \Serializable
     {
         // add $this->salt too if you don't use Bcrypt or Argon2i
         [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getTotalPostUpdates(): ?int
+    {
+        return $this->totalPostUpdates;
+    }
+
+    public function setTotalPostUpdates(int $totalPostUpdates): self
+    {
+        $this->totalPostUpdates = $totalPostUpdates;
+
+        return $this;
     }
 }
