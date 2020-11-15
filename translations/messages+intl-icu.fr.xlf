@@ -76,6 +76,10 @@
                 <source>title.login</source>
                 <target>Connexion sécurisée</target>
             </trans-unit>
+            <trans-unit id="title.user_list">
+                <source>title.user_list</source>
+                <target>Liste des membres</target>
+            </trans-unit>
             <trans-unit id="title.post_list">
                 <source>title.post_list</source>
                 <target>Liste des articles</target>
@@ -190,6 +194,14 @@
                 <source>label.title</source>
                 <target>Titre</target>
             </trans-unit>
+            <trans-unit id="label.postNumber">
+                <source>label.postNumber</source>
+                <target>Nombre de posts</target>
+            </trans-unit>
+            <trans-unit id="label.commentNumber">
+                <source>label.commentNumber</source>
+                <target>Nombre de commentaires</target>
+            </trans-unit>
             <trans-unit id="action.close">
                 <source>action.close</source>
                 <target>Fermer</target>
@@ -275,6 +287,10 @@
                 <source>menu.post_list</source>
                 <target>Liste des articles</target>
             </trans-unit>
+            <trans-unit id="menu.user_list">
+                <source>menu.user_list</source>
+                <target>Liste des membres</target>
+            </trans-unit>
             <trans-unit id="menu.back_to_blog">
                 <source>menu.back_to_blog</source>
                 <target>Retour au blog</target>
@@ -345,6 +361,10 @@
                 <target>Aucun résultat</target>
             </trans-unit>
 
+            <trans-unit id="user.no_users_found">
+                <source>user.no_users_found</source>
+                <target>Aucun membre trouvé.</target>
+            </trans-unit>
             <trans-unit id="user.updated_successfully">
                 <source>user.updated_successfully</source>
                 <target>Informations mises à jour avec succès !</target>

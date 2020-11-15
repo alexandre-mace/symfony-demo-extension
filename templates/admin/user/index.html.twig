@@ -1,0 +1,62 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_id 'admin_user_index' %}
+
+{% block main %}
+    <h1>{{ 'title.user_list'|trans }}</h1>
+
+    <table class="table table-striped table-middle-aligned">
+        <thead>
+        <tr>
+            <th scope="col">{{ 'label.fullname'|trans }}</th>
+            <th scope="col">{{ 'label.postNumber'|trans }}</th>
+            <th scope="col">{{ 'label.commentNumber'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in paginator.results %}
+            <tr>
+                <td>{{ user.fullName }}</td>
+                <td>{{ users[loop.index0].totalPosts }}</td>
+                <td>{{ users[loop.index0].totalComments }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" align="center">{{ 'user.no_users_found'|trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+        {% if paginator.hasToPaginate %}
+            <div class="navigation text-center">
+                <ul class="pagination">
+                    {% if paginator.hasPreviousPage %}
+                        <li class="prev"><a href="{{ path('admin_user_index_paginated', {page: paginator.previousPage}) }}" rel="previous"><i class="fa fw fa-long-arrow-left"></i> {{ 'paginator.previous'|trans }}</a></li>
+                    {% else %}
+                        <li class="prev disabled"><span><i class="fa fw fa-arrow-left"></i> {{ 'paginator.previous'|trans }}</span></li>
+                    {% endif %}
+
+                    {% for i in 1..paginator.lastPage %}
+                        {% if i == paginator.currentPage %}
+                            <li class="active"><span>{{ i }} <span class="sr-only">{{ 'paginator.current'|trans }}</span></span></li>
+                        {% else %}
+                            <li><a href="{{ path('admin_user_index_paginated', {page: i}) }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if paginator.hasNextPage %}
+                        <li class="next"><a href="{{ path('admin_user_index_paginated', {page: paginator.nextPage}) }}" rel="next">{{ 'paginator.next'|trans }} <i class="fa fw fa-arrow-right"></i></a></li>
+                    {% else %}
+                        <li class="next disabled"><span>{{ 'paginator.next'|trans }} <i class="fa fw fa-arrow-right"></i></span></li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    </table>
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+
+    {{ show_source_code(_self) }}
+{% endblock %}

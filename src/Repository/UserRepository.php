@@ -11,7 +11,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Comment;
+use App\Entity\Post;
 use App\Entity\User;
+use App\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -27,8 +30,45 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UserRepository extends ServiceEntityRepository
 {
+    public const MAX_USERS_PER_PAGE = 10;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    public function getAllUsers(int $page = 1): Paginator
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        return (new Paginator($qb, self::MAX_USERS_PER_PAGE))->paginate($page);
+    }
+
+    public function getTotalPostsByUser(User $user): int
+    {
+        $qb = $this
+            ->createQueryBuilder('u')
+            ->select('count(p.author)')
+            ->from(Post::class,'p')
+            ->where('p.author = :user')
+            ->setParameter('user', $user);
+
+        $count = $qb->getQuery()->getSingleScalarResult();
+
+        return $count;
+    }
+
+    public function getTotalCommentsByUser(User $user): int
+    {
+        $qb = $this
+            ->createQueryBuilder('u')
+            ->select('count(c.author)')
+            ->from(Comment::class,'c')
+            ->where('c.author = :user')
+            ->setParameter('user', $user);
+
+        $count = $qb->getQuery()->getSingleScalarResult();
+
+        return $count;
     }
 }
